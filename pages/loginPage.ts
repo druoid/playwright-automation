@@ -38,6 +38,6 @@ export class LoginPage {
     await this.page
       .getByRole('heading', { name: 'Login to your account' })
       .isVisible();
-    expect(this.page).toHaveURL('https://automationexercise.com/login');
+    await expect(this.page).toHaveURL('https://automationexercise.com/login');
   }
 }

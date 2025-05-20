@@ -8,10 +8,10 @@ export class HomePage {
   }
 
   async verifyHomePage() {
-    expect(this.page).toHaveURL('https://automationexercise.com/');
+    await expect(this.page).toHaveURL('https://automationexercise.com/');
     const heading = this.page.getByRole('heading', {
       name: 'AutomationExercise',
     });
-    expect(heading).toBeVisible();
+    await expect(heading).toBeVisible();
   }
 }
