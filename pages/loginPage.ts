@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 import { user } from '../fixtures/user';
 
 export class LoginPage {
@@ -32,5 +32,12 @@ export class LoginPage {
     await this.page
       .getByText('Your email or password is incorrect!')
       .isVisible();
+  }
+
+  async verifyLoginPage() {
+    await this.page
+      .getByRole('heading', { name: 'Login to your account' })
+      .isVisible();
+    expect(this.page).toHaveURL('https://automationexercise.com/login');
   }
 }
