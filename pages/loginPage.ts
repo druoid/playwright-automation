@@ -18,4 +18,13 @@ export class LoginPage {
     await this.page.getByTestId('signup-email').fill(user.email);
     await this.page.getByRole('button', { name: 'Signup' }).click();
   }
+
+  async enterLoginCredentials() {
+    await this.page
+      .getByRole('heading', { name: 'Login to your account' })
+      .isVisible();
+    await this.page.getByTestId('login-email').fill(user.email);
+    await this.page.getByTestId('login-password').fill(user.password);
+    await this.page.getByRole('button', { name: 'Login' }).click();
+  }
 }

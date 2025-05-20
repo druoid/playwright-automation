@@ -13,4 +13,8 @@ export class LoggedInHomePage {
   async deleteAccount() {
     await this.page.getByRole('link', { name: ' Delete Account' }).click();
   }
+
+  async logOutOfAccount() {
+    await this.page.getByRole('link', { name: ' Logout' }).click();
+  }
 }
