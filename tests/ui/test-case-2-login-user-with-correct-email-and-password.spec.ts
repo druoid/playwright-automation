@@ -29,9 +29,9 @@ test('Login user with correct email and password', async ({ page }) => {
 
   await loginPage.navigateToLoginPage();
   await loginPage.enterLoginCredentials();
-  
+
   await loggedInHomePage.verifyLoggedInUser();
   await loggedInHomePage.deleteAccount();
-  
-  await deleteAccountPage.verifyDeletedAccount();  
+
+  await deleteAccountPage.verifyDeletedAccount();
 });

@@ -5,7 +5,7 @@ import { SignUpPage } from '../../pages/signUpPage';
 import { AccountCreatedPage } from '../../pages/accountCreatedPage';
 import { LoggedInHomePage } from '../../pages/loggedInHomePage';
 
-test('Logout user', async ({ page }) => {
+test('Register user with existing email', async ({ page }) => {
   const homePage = new HomePage(page);
   const loginPage = new LoginPage(page);
   const signUpPage = new SignUpPage(page);
@@ -22,14 +22,9 @@ test('Logout user', async ({ page }) => {
 
   await accountCreatedPage.verifyAccountCreation();
 
-  await loggedInHomePage.verifyLoggedInUser();
   await loggedInHomePage.logOutOfAccount();
 
   await loginPage.navigateToLoginPage();
-  await loginPage.enterLoginCredentials();
-
-  await loggedInHomePage.verifyLoggedInUser();
-  await loggedInHomePage.logOutOfAccount();
-
-  await loginPage.verifyLoginPage();
+  await loginPage.newUserSignUp();
+  await loginPage.verifyEmailAlreadyExistsError();
 });

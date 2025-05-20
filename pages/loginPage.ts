@@ -35,9 +35,13 @@ export class LoginPage {
   }
 
   async verifyLoginPage() {
+    await expect(this.page).toHaveURL('https://automationexercise.com/login');
     await this.page
       .getByRole('heading', { name: 'Login to your account' })
       .isVisible();
-    await expect(this.page).toHaveURL('https://automationexercise.com/login');
+  }
+
+  async verifyEmailAlreadyExistsError() {
+    await this.page.getByText('Email Address already exist!').isVisible();
   }
 }
