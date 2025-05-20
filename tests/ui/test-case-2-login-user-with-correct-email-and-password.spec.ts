@@ -32,7 +32,6 @@ test('Login user with correct email and password', async ({ page }) => {
   
   await loggedInHomePage.verifyLoggedInUser();
   await loggedInHomePage.deleteAccount();
-
-
+  
   await deleteAccountPage.verifyDeletedAccount();  
 });

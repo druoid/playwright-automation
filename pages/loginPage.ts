@@ -27,4 +27,10 @@ export class LoginPage {
     await this.page.getByTestId('login-password').fill(user.password);
     await this.page.getByRole('button', { name: 'Login' }).click();
   }
+
+  async verifyLoginErrorMessage() {
+    await this.page
+      .getByText('Your email or password is incorrect!')
+      .isVisible();
+  }
 }
