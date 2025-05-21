@@ -14,4 +14,8 @@ export class HomePage {
     });
     await expect(heading).toBeVisible();
   }
+
+  async clickOnContactUs() {
+    await this.page.getByRole('link', { name: 'Contact us' }).click();
+  }
 }

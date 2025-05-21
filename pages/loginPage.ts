@@ -44,4 +44,8 @@ export class LoginPage {
   async verifyEmailAlreadyExistsError() {
     await this.page.getByText('Email Address already exist!').isVisible();
   }
+
+  async navigateToContactUs() {
+    await this.page.getByRole('link', { name: 'Contact us' }).click();
+  }
 }
