@@ -1,20 +1,29 @@
-import { Page } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { user } from '../fixtures/user';
 
 export class LoggedInHomePage {
-  constructor(private page: Page) {}
+  readonly page: Page;
+  readonly loggedInText: Locator;
+  readonly deleteAccountLink: Locator;
+  readonly logoutLink: Locator;
 
-  async verifyLoggedInUser() {
-    await this.page
-      .getByText('Logged in as ' + user.firstName + '' + user.lastName)
-      .isVisible();
+  constructor(page: Page) {
+    this.page = page;
+    this.loggedInText = page.getByText(`Logged in as ${user.firstName} ${user.lastName}`);
+    this.deleteAccountLink = page.getByRole('link', { name: ' Delete Account' });
+    this.logoutLink = page.getByRole('link', { name: ' Logout' });
+  }
+
+  async verifyUserIsLoggedIn() {
+    await expect(this.loggedInText).toBeVisible();
   }
 
   async deleteAccount() {
-    await this.page.getByRole('link', { name: ' Delete Account' }).click();
+    await this.deleteAccountLink.click();
   }
 
-  async logOutOfAccount() {
-    await this.page.getByRole('link', { name: ' Logout' }).click();
+  async logOut() {
+    await this.logoutLink.click();
   }
 }
+

@@ -23,15 +23,16 @@ test('Login user with correct email and password', async ({ page }) => {
   await signUpPage.enterAccountInformation();
 
   await accountCreatedPage.verifyAccountCreation();
+  await accountCreatedPage.continue();
 
-  await loggedInHomePage.verifyLoggedInUser();
-  await loggedInHomePage.logOutOfAccount();
+  await loggedInHomePage.verifyUserIsLoggedIn();
+  await loggedInHomePage.logOut();
 
   await loginPage.navigateToLoginPage();
   await loginPage.enterLoginCredentials();
 
-  await loggedInHomePage.verifyLoggedInUser();
+  await loggedInHomePage.verifyUserIsLoggedIn();
   await loggedInHomePage.deleteAccount();
 
-  await deleteAccountPage.verifyDeletedAccount();
+  await deleteAccountPage.verifyAccountDeleted();
 });

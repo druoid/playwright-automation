@@ -1,10 +1,22 @@
-import { Page } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class DeleteAccountPage {
-  constructor(private page: Page) {}
+  readonly page: Page;
+  readonly confirmationMessage: Locator;
+  readonly continueLink: Locator;
 
-  async verifyDeletedAccount() {
-    await this.page.getByText('Account Deleted!').isVisible();
-    await this.page.getByRole('link', { name: 'Continue' }).click();
+  constructor(page: Page) {
+    this.page = page;
+    this.confirmationMessage = page.getByText('Account Deleted!');
+    this.continueLink = page.getByRole('link', { name: 'Continue' });
+  }
+
+  async verifyAccountDeleted() {
+    await expect(this.confirmationMessage).toBeVisible();
+  }
+
+  async continue() {
+    await this.continueLink.click();
   }
 }
+

@@ -21,15 +21,16 @@ test('Logout user', async ({ page }) => {
   await signUpPage.enterAccountInformation();
 
   await accountCreatedPage.verifyAccountCreation();
+  await accountCreatedPage.continue();
 
-  await loggedInHomePage.verifyLoggedInUser();
-  await loggedInHomePage.logOutOfAccount();
+  await loggedInHomePage.verifyUserIsLoggedIn();
+  await loggedInHomePage.logOut();
 
   await loginPage.navigateToLoginPage();
   await loginPage.enterLoginCredentials();
 
-  await loggedInHomePage.verifyLoggedInUser();
-  await loggedInHomePage.logOutOfAccount();
+  await loggedInHomePage.verifyUserIsLoggedIn();
+  await loggedInHomePage.logOut();
 
   await loginPage.verifyLoginPage();
 });

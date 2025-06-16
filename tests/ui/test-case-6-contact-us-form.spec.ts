@@ -9,16 +9,16 @@ test('Validate contact us form', async ({ page }) => {
 
   await homePage.goto();
   await homePage.verifyHomePage();
-  await homePage.clickOnContactUs();
+  await homePage.clickContactUs();
 
-  await contactUsPage.verifyContactUsPage();
-  await contactUsPage.fillContactUsForm();
+  await contactUsPage.verifyOnContactUsPage();
+  await contactUsPage.fillContactForm();
   await contactUsPage.uploadFile();
  
-  await contactUsPage.clickOnOkButtonListenerAndThenSubmitButton(); 
+  await contactUsPage.submitFormWithDialogConfirmation(); 
 
   await contactUsPage.verifySuccessMessage();
-  await contactUsPage.clickOnHomeButton();
+  await contactUsPage.goHome();
 
   await homePage.verifyHomePage();
 });

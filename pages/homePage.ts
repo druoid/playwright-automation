@@ -1,21 +1,26 @@
-import { Page, expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class HomePage {
-  constructor(private page: Page) {}
+  readonly page: Page;
+  readonly heading: Locator;
+  readonly contactUsLink: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.heading = page.getByRole('heading', { name: 'AutomationExercise' });
+    this.contactUsLink = page.getByRole('link', { name: 'Contact us' });
+  }
 
   async goto() {
-    await this.page.goto('/');
+    await this.page.goto('/'); // uses baseURL from config
   }
 
   async verifyHomePage() {
-    await expect(this.page).toHaveURL('https://automationexercise.com/');
-    const heading = this.page.getByRole('heading', {
-      name: 'AutomationExercise',
-    });
-    await expect(heading).toBeVisible();
+    await expect(this.page).toHaveURL(/.*automationexercise\.com/); // regex for flexibility
+    await expect(this.heading).toBeVisible();
   }
 
-  async clickOnContactUs() {
-    await this.page.getByRole('link', { name: 'Contact us' }).click();
+  async clickContactUs() {
+    await this.contactUsLink.click();
   }
 }

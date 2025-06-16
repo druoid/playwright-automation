@@ -23,9 +23,10 @@ test('Register user', async ({ page }) => {
   await signUpPage.enterAccountInformation();
 
   await accountCreatedPage.verifyAccountCreation();
+  await accountCreatedPage.continue();
 
-  await loggedInHomePage.verifyLoggedInUser();
+  await loggedInHomePage.verifyUserIsLoggedIn();
   await loggedInHomePage.deleteAccount();
 
-  await deleteAccountPage.verifyDeletedAccount();
+  await deleteAccountPage.verifyAccountDeleted();
 });

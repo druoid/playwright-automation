@@ -1,55 +1,61 @@
-import { Page, expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { user } from '../fixtures/user';
 
 export class ContactUsPage {
-  constructor(private page: Page) {}
+  readonly page: Page;
+  readonly heading: Locator;
+  readonly nameInput: Locator;
+  readonly emailInput: Locator;
+  readonly subjectInput: Locator;
+  readonly messageInput: Locator;
+  readonly fileUploadButton: Locator;
+  readonly submitButton: Locator;
+  readonly successMessage: Locator;
+  readonly homeLink: Locator;
 
-  async verifyContactUsPage() {
-    await expect(this.page).toHaveURL(
-      'https://automationexercise.com/contact_us',
-    );
-    const heading = this.page.getByRole('heading', {
-      name: 'GET IN TOUCH',
-    });
-    await expect(heading).toBeVisible();
+  constructor(page: Page) {
+    this.page = page;
+    this.heading = page.getByRole('heading', { name: 'GET IN TOUCH' });
+    this.nameInput = page.getByRole('textbox', { name: 'Name' });
+    this.emailInput = page.getByRole('textbox', { name: 'Email', exact: true });
+    this.subjectInput = page.getByRole('textbox', { name: 'Subject' });
+    this.messageInput = page.getByRole('textbox', { name: 'Your Message Here' });
+    this.fileUploadButton = page.getByRole('button', { name: 'Choose File' });
+    this.submitButton = page.getByTestId('submit-button');
+    this.successMessage = page.locator('#contact-page').getByText('Success! Your details have');
+    this.homeLink = page.getByRole('link', { name: ' Home' });
   }
 
-  async fillContactUsForm() {
-    await this.page
-      .getByRole('textbox', { name: 'Name' })
-      .fill(user.firstName + ' ' + user.lastName);
-    await this.page
-      .getByRole('textbox', { name: 'Email', exact: true })
-      .fill(user.email);
-    await this.page
-      .getByRole('textbox', { name: 'Subject' })
-      .fill('Test Subject');
-    await this.page
-      .getByRole('textbox', { name: 'Your Message Here' })
-      .fill('Test Message');
+  async verifyOnContactUsPage() {
+    await expect(this.page).toHaveURL('https://automationexercise.com/contact_us');
+    await expect(this.heading).toBeVisible();
   }
 
-  async uploadFile() {
-    const filePath = './fixtures/file.txt'; 
-    await this.page
-      .getByRole('button', { name: 'Choose File' })
-      .setInputFiles(filePath);
+  async fillContactForm() {
+    await this.nameInput.fill(`${user.firstName} ${user.lastName}`);
+    await this.emailInput.fill(user.email);
+    await this.subjectInput.fill('Test Subject');
+    await this.messageInput.fill('Test Message');
   }
 
-  // Register the page.on('dialog', ...) listener before you click the button.
-  async clickOnOkButtonListenerAndThenSubmitButton() {   
-    this.page.on('dialog', async (dialog) => {
-      await dialog.accept(); // Click "OK"
+  async uploadFile(filePath = './fixtures/file.txt') {
+    await this.fileUploadButton.setInputFiles(filePath);
+  }
+
+  async submitFormWithDialogConfirmation() {
+    this.page.once('dialog', async (dialog) => {
+      await dialog.accept();
     });
     await this.page.waitForLoadState('networkidle');
-    await this.page.getByTestId('submit-button').click();
+    await this.submitButton.click();
   }
 
   async verifySuccessMessage() {
-    await this.page.locator('#contact-page').getByText('Success! Your details have').isVisible();
+    await expect(this.successMessage).toBeVisible();
   }
 
-  async clickOnHomeButton() {
-    await this.page.getByRole('link', { name: ' Home' }).click();
+  async goHome() {
+    await this.homeLink.click();
   }
 }
+

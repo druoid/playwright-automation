@@ -1,53 +1,76 @@
-import { Page } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { user } from '../fixtures/user';
 
 export class SignUpPage {
-  constructor(private page: Page) {}
+  readonly page: Page;
+  readonly sectionTitle: Locator;
+  readonly genderRadio: Locator;
+  readonly passwordInput: Locator;
+  readonly daySelect: Locator;
+  readonly monthSelect: Locator;
+  readonly yearSelect: Locator;
+  readonly newsletterCheckbox: Locator;
+  readonly offersCheckbox: Locator;
+  readonly firstNameInput: Locator;
+  readonly lastNameInput: Locator;
+  readonly companyInput: Locator;
+  readonly addressInput: Locator;
+  readonly address2Input: Locator;
+  readonly countrySelect: Locator;
+  readonly stateInput: Locator;
+  readonly cityZipInput: Locator;
+  readonly zipInput: Locator;
+  readonly mobileInput: Locator;
+  readonly createAccountButton: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.sectionTitle = page.getByText('Enter Account Information');
+    this.genderRadio = page.getByRole('radio', { name: 'Mr.' });
+    this.passwordInput = page.getByRole('textbox', { name: 'Password *' });
+    this.daySelect = page.locator('#days');
+    this.monthSelect = page.locator('#months');
+    this.yearSelect = page.locator('#years');
+    this.newsletterCheckbox = page.getByRole('checkbox', { name: 'Sign up for our newsletter!' });
+    this.offersCheckbox = page.getByRole('checkbox', { name: 'Receive special offers from' });
+    this.firstNameInput = page.getByRole('textbox', { name: 'First name *' });
+    this.lastNameInput = page.getByRole('textbox', { name: 'Last name *' });
+    this.companyInput = page.getByRole('textbox', { name: 'Company', exact: true });
+    this.addressInput = page.getByRole('textbox', { name: 'Address * (Street address, P.' });
+    this.address2Input = page.getByRole('textbox', { name: 'Address 2' });
+    this.countrySelect = page.getByLabel('Country *');
+    this.stateInput = page.getByRole('textbox', { name: 'State *' });
+    this.cityZipInput = page.getByRole('textbox', { name: 'City * Zipcode *' });
+    this.zipInput = page.locator('#zipcode');
+    this.mobileInput = page.getByRole('textbox', { name: 'Mobile Number *' });
+    this.createAccountButton = page.getByRole('button', { name: 'Create Account' });
+  }
 
   async enterAccountInformation() {
-    await this.page.getByText('Enter Account Information').isVisible();
-    await this.page.getByRole('radio', { name: 'Mr.' }).check();
-    await this.page
-      .getByRole('textbox', { name: 'Password *' })
-      .fill(user.password);
-    await this.page.locator('#days').selectOption(user.birthdate.day);
-    await this.page.locator('#months').selectOption(user.birthdate.month);
-    await this.page.locator('#years').selectOption(user.birthdate.year);
-    await this.page
-      .getByRole('checkbox', { name: 'Sign up for our newsletter!' })
-      .check();
-    await this.page
-      .getByRole('checkbox', { name: 'Receive special offers from' })
-      .check();
-    await this.page
-      .getByRole('textbox', { name: 'First name *' })
-      .fill(user.firstName);
-    await this.page
-      .getByRole('textbox', { name: 'Last name *' })
-      .fill(user.lastName);
-    await this.page
-      .getByRole('textbox', { name: 'Company', exact: true })
-      .fill(user.company);
-    await this.page
-      .getByRole('textbox', { name: 'Address * (Street address, P.' })
-      .fill(user.address);
-    await this.page
-      .getByRole('textbox', { name: 'Address 2' })
-      .fill(user.address2);
-    await this.page
-      .locator('div')
-      .filter({ hasText: 'Enter Account Information' })
-      .nth(1)
-      .isVisible();
-    await this.page.getByLabel('Country *').selectOption('New Zealand');
-    await this.page.getByRole('textbox', { name: 'State *' }).fill(user.state);
-    await this.page
-      .getByRole('textbox', { name: 'City * Zipcode *' })
-      .fill(user.city);
-    await this.page.locator('#zipcode').fill(user.zipcode);
-    await this.page
-      .getByRole('textbox', { name: 'Mobile Number *' })
-      .fill(user.mobileNumber);
-    await this.page.getByRole('button', { name: 'Create Account' }).click();
+    await expect(this.sectionTitle).toBeVisible();
+
+    await this.genderRadio.check();
+    await this.passwordInput.fill(user.password);
+    await this.daySelect.selectOption(user.birthdate.day);
+    await this.monthSelect.selectOption(user.birthdate.month);
+    await this.yearSelect.selectOption(user.birthdate.year);
+
+    await this.newsletterCheckbox.check();
+    await this.offersCheckbox.check();
+
+    await this.firstNameInput.fill(user.firstName);
+    await this.lastNameInput.fill(user.lastName);
+    await this.companyInput.fill(user.company);
+    await this.addressInput.fill(user.address);
+    await this.address2Input.fill(user.address2);
+
+    await this.countrySelect.selectOption('New Zealand');
+    await this.stateInput.fill(user.state);
+    await this.cityZipInput.fill(user.city);
+    await this.zipInput.fill(user.zipcode);
+    await this.mobileInput.fill(user.mobileNumber);
+
+    await this.createAccountButton.click();
   }
 }
+

@@ -21,8 +21,9 @@ test('Register user with existing email', async ({ page }) => {
   await signUpPage.enterAccountInformation();
 
   await accountCreatedPage.verifyAccountCreation();
+  await accountCreatedPage.continue();
 
-  await loggedInHomePage.logOutOfAccount();
+  await loggedInHomePage.logOut();
 
   await loginPage.navigateToLoginPage();
   await loginPage.newUserSignUp();
