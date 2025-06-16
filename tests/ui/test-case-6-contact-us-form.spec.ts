@@ -3,7 +3,6 @@ import { HomePage } from '../../pages/homePage';
 import { ContactUsPage } from '../../pages/contactUsPage';
 
 test('Validate contact us form', async ({ page }) => {
-  test.setTimeout(60000); // Set timeout for test to 60 seconds
   const homePage = new HomePage(page);
   const contactUsPage = new ContactUsPage(page);
 
