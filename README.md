@@ -1,6 +1,6 @@
 ## Purpose
 
-This project showcases playwright UI automation examples using test cases from https://automationexercise.com/test_cases
+This project showcases playwright UI automation examples using test cases from https://automationexercise.com/test_cases  
 It uses github actions and Page Object Model principles.
 
 ## Getting the Latest Code
