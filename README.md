@@ -2,7 +2,8 @@
 
 This project showcases playwright UI automation examples using test cases from https://automationexercise.com/test_cases  
 
-The project uses github actions and Page Object Model best practices.
+The project uses github actions and Page Object Model best practices.  It also uses eslint as the linting tool and faker 
+for dynamic data creation.  There is also a mechanism to specify which environment settings to use i.e dev or test (defaulting to dev) and it skips tests if an environment is unreachable.
 
 ## Getting the Latest Code
 

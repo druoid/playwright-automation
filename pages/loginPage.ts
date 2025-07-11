@@ -1,5 +1,9 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { user } from '../fixtures/user';
+import { environments } from '../config/environments';
+
+const environment = process.env.TEST_ENV || 'dev';
+const { userPassword } = environments[environment];
 
 export class LoginPage {
   readonly page: Page;
@@ -51,7 +55,7 @@ export class LoginPage {
   async enterLoginCredentials() {
     await expect(this.loginHeading).toBeVisible();
     await this.loginEmailInput.fill(user.email);
-    await this.loginPasswordInput.fill(user.password);
+    await this.loginPasswordInput.fill(userPassword);
     await this.loginButton.click();
   }
 

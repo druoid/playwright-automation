@@ -1,5 +1,9 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { user } from '../fixtures/user';
+import { environments } from '../config/environments';
+
+const environment = process.env.TEST_ENV || 'dev';
+const { userPassword } = environments[environment];
 
 export class SignUpPage {
   readonly page: Page;
@@ -50,7 +54,7 @@ export class SignUpPage {
     await expect(this.sectionTitle).toBeVisible();
 
     await this.genderRadio.check();
-    await this.passwordInput.fill(user.password);
+    await this.passwordInput.fill(userPassword);
     await this.daySelect.selectOption(user.birthdate.day);
     await this.monthSelect.selectOption(user.birthdate.month);
     await this.yearSelect.selectOption(user.birthdate.year);

@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write .",
-    "lint": "eslint . --ext .ts,.js"
+    "lint": "eslint . --ext .ts,.js",
+    "test:dev": "TEST_ENV=dev npx playwright test",
+    "test:test": "TEST_ENV=test npx playwright test"
   },
   "keywords": [],
   "author": "",
