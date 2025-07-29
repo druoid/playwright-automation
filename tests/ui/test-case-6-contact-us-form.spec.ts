@@ -8,7 +8,7 @@ test('Validate contact us form', async ({ page }) => {
 
   await homePage.goto();
   await homePage.verifyHomePage();
-  await homePage.clickContactUs();
+  await homePage.clickContactUsLink();
 
   await contactUsPage.verifyOnContactUsPage();
   await contactUsPage.fillContactForm();
