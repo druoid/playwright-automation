@@ -1,5 +1,4 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { user } from '../fixtures/user';
 import { environments } from '../config/environments';
 
 const environment = process.env.TEST_ENV || 'dev';
@@ -45,14 +44,14 @@ export class LoginPage {
     await expect(this.loginHeading).toBeVisible();
   }
 
-  async newUserSignUp() {
+  async newUserSignUp(user) {
     await expect(this.newUserHeading).toBeVisible();
     await this.nameInput.fill(`${user.firstName} ${user.lastName}`);
     await this.signupEmailInput.fill(user.email);
     await this.signupButton.click();
   }
 
-  async enterLoginCredentials() {
+  async enterLoginCredentials(user) {
     await expect(this.loginHeading).toBeVisible();
     await this.loginEmailInput.fill(user.email);
     await this.loginPasswordInput.fill(userPassword);

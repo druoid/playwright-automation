@@ -1,5 +1,4 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { user } from '../fixtures/user';
 
 export class HomePage {
   readonly page: Page;
@@ -47,7 +46,7 @@ export class HomePage {
     await this.productsLink.click();
   }
 
-  async verifyAddSubscriptionSuccessFromHomePage() {
+  async verifyAddSubscriptionSuccessFromHomePage(user) {
     await expect(this.subscriptionText).toContainText('Subscription');
     await this.subscriptionInput.fill(user.email);
     await this.subscriptionButton.click();

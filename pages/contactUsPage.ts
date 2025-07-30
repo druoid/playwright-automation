@@ -1,5 +1,4 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { user } from '../fixtures/user';
 
 export class ContactUsPage {
   readonly page: Page;
@@ -31,7 +30,7 @@ export class ContactUsPage {
     await expect(this.heading).toBeVisible();
   }
 
-  async fillContactForm() {
+  async fillContactForm(user) {
     await this.nameInput.fill(`${user.firstName} ${user.lastName}`);
     await this.emailInput.fill(user.email);
     await this.subjectInput.fill('Test Subject');

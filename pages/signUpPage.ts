@@ -1,5 +1,4 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { user } from '../fixtures/user';
 import { environments } from '../config/environments';
 
 const environment = process.env.TEST_ENV || 'dev';
@@ -50,7 +49,7 @@ export class SignUpPage {
     this.createAccountButton = page.getByRole('button', { name: 'Create Account' });
   }
 
-  async enterAccountInformation() {
+  async enterAccountInformation(user) {
     await expect(this.sectionTitle).toBeVisible();
 
     await this.genderRadio.check();

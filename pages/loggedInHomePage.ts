@@ -1,5 +1,4 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { user } from '../fixtures/user';
 
 export class LoggedInHomePage {
   readonly page: Page;
@@ -7,7 +6,7 @@ export class LoggedInHomePage {
   readonly deleteAccountLink: Locator;
   readonly logoutLink: Locator;
 
-  constructor(page: Page) {
+  constructor(page: Page, user: { firstName: string; lastName: string }) {
     this.page = page;
     this.loggedInText = page.getByText(`Logged in as ${user.firstName} ${user.lastName}`);
     this.deleteAccountLink = page.getByRole('link', { name: ' Delete Account' });

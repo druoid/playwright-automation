@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-export const user = {
+export const generateUser = () => ({
   name: faker.person.fullName(),
   email: faker.internet.email(),
   password: faker.internet.password(),
@@ -15,4 +15,4 @@ export const user = {
   city: faker.location.city(),
   zipcode: faker.location.zipCode(),
   mobileNumber: faker.phone.number({ style: 'national' }),
-};
+});

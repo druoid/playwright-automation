@@ -1,5 +1,4 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { user } from '../fixtures/user';
 
 export class CartPage {
   readonly page: Page;
@@ -16,7 +15,7 @@ export class CartPage {
     this.subscriptionSuccessMessage = page.getByText('You have been successfully subscribed!');
   }
 
-  async verifyAddSubscriptionSuccessFromCartPage() {
+  async verifyAddSubscriptionSuccessFromCartPage(user) {
     await expect(this.subscriptionText).toContainText('Subscription');
     await this.subscriptionInput.fill(user.email);
     await this.subscriptionButton.click();
