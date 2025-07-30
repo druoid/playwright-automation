@@ -6,5 +6,5 @@ test('Verify add subscription on home page', async ({ page }) => {
 
   await homePage.goto();
   await homePage.verifyHomePage();
-  await homePage.verifyAddSubscriptionSuccess();
+  await homePage.verifyAddSubscriptionSuccessFromHomePage();
 });

@@ -11,6 +11,7 @@ export class HomePage {
   readonly subscriptionInput: Locator;
   readonly subscriptionButton: Locator;
   readonly subscriptionSuccessMessage: Locator; 
+  readonly cartPageLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,6 +23,7 @@ export class HomePage {
     this.subscriptionInput = page.getByRole('textbox', { name: 'Your email address' });
     this.subscriptionButton = page.getByRole('button', { name: '' });
     this.subscriptionSuccessMessage = page.getByText('You have been successfully subscribed!');
+    this.cartPageLink = page.getByRole('link', { name: ' Cart' });
   }
 
   async goto() {
@@ -45,10 +47,14 @@ export class HomePage {
     await this.productsLink.click();
   }
 
-  async verifyAddSubscriptionSuccess() {
+  async verifyAddSubscriptionSuccessFromHomePage() {
     await expect(this.subscriptionText).toContainText('Subscription');
     await this.subscriptionInput.fill(user.email);
     await this.subscriptionButton.click();
     await expect(this.subscriptionSuccessMessage).toBeVisible();
   }   
+
+  async clickCartPageLink() {
+    await this.cartPageLink.click();
+  }
 }
