@@ -5,12 +5,14 @@ export class HomePage {
   readonly heading: Locator;
   readonly contactUsLink: Locator;
   readonly testCasesLink: Locator;
+  readonly productsLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole('heading', { name: 'AutomationExercise' });
     this.contactUsLink = page.getByRole('link', { name: 'Contact us' });
     this.testCasesLink = page.getByRole('link', { name: ' Test Cases' })
+    this.productsLink = page.getByRole('link', { name: ' Products' })
   }
 
   async goto() {
@@ -28,5 +30,9 @@ export class HomePage {
 
   async clickTestCasesLink() {
     await this.testCasesLink.click();
+  }
+
+    async clickProductsLink() {
+    await this.productsLink.click();
   }
 }
