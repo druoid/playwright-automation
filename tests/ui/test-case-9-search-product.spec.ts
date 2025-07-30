@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { HomePage } from '../../pages/homePage';
 import { ProductsPage } from '../../pages/productsPage';
 
-test('Verify all products page and product detail page', async ({ page }) => {
+test('Verify search product functionality', async ({ page }) => {
   const homePage = new HomePage(page);
   const productsPage = new ProductsPage(page);
 
