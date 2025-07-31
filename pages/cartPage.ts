@@ -14,6 +14,8 @@ export class CartPage {
   readonly secondProductQuantity: Locator;
   readonly firstProductTotal: Locator;
   readonly secondProductTotal: Locator; 
+  readonly proceedToCheckoutButton: Locator;
+  readonly registerLoginFromCartModal: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -29,6 +31,8 @@ export class CartPage {
     this.secondProductQuantity = page.locator('tr#product-2 td.cart_quantity');
     this.firstProductTotal = page.locator('tr#product-1 td.cart_total');
     this.secondProductTotal = page.locator('tr#product-2 td.cart_total');
+    this.proceedToCheckoutButton = page.getByText('Proceed To Checkout');
+    this.registerLoginFromCartModal = page.getByRole('link', { name: 'Register / Login' });
   }
 
   async verifyAddSubscriptionSuccessFromCartPage(user) {
@@ -49,7 +53,29 @@ export class CartPage {
     await expect(this.secondProductTotal).toContainText('Rs. 400');
   }
 
+  async calculateTotalPrice() {
+    const firstProductPriceText = await this.firstProductPrice.textContent();
+    const secondProductPriceText = await this.secondProductPrice.textContent();
+    const firstProductPrice = parseFloat((firstProductPriceText ?? '').replace('Rs. ', ''));
+    const secondProductPrice = parseFloat((secondProductPriceText ?? '').replace('Rs. ', ''));
+    return firstProductPrice + secondProductPrice;
+  }
+
   async verifyProductQuantitiesInCart(quantity: number) {
     await expect(this.firstProductQuantity).toHaveText(quantity.toString());
   }
+
+  async verifyCartPage() {
+    await expect(this.page).toHaveURL('https://automationexercise.com/view_cart');
+  }
+
+  async proceedToCheckout() {
+    await this.proceedToCheckoutButton.click();
+  }
+
+  async openRegisterLoginFromCartModal() {
+    await this.registerLoginFromCartModal.click();
+  }
+
+
 }
