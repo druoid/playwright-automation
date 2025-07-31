@@ -1,20 +1,24 @@
 import { test } from '@playwright/test';
 import { HomePage } from '../../pages/homePage';
+import { FirstProductDetailPage } from '../../pages/firstProductDetailPage';
 import { ProductsPage } from '../../pages/productsPage';
 import { CartPage } from '../../pages/cartPage';
 
-test('Add products to cart', async ({ page }) => {
+test('Verify product quantity in cart', async ({ page }) => {
   const homePage = new HomePage(page);
+  const firstProductDetailPage = new FirstProductDetailPage(page);
   const productsPage = new ProductsPage(page);
   const cartPage = new CartPage(page);
+  const quantity = 4;
 
   await homePage.goto();
   await homePage.verifyHomePage();
-  await homePage.clickProductsLink();
+  await homePage.viewFirstProductInList();
 
-  await productsPage.verifyProductsPage();
-  await productsPage.addProductsToCart();
+  await firstProductDetailPage.addProductToCart(quantity);
+
   await productsPage.viewCartModal();
-  await cartPage.verifyCartContents();
 
+  await cartPage.verifyProductQuantitiesInCart(quantity);
+  
 });

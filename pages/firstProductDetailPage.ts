@@ -31,4 +31,9 @@ export class FirstProductDetailPage {
     await expect(this.productDetailCondition).toBeVisible();
     await expect(this.productDetailBrand).toBeVisible();
   }
+
+  async addProductToCart(quantity: number) {
+    await this.page.locator('#quantity').fill(quantity.toString())
+    await this.page.getByRole('button', { name: ' Add to cart' }).click();
+  }
 }
