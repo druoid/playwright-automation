@@ -13,7 +13,11 @@ export class ProductsPage {
   readonly secondProductAddToCartButton: Locator;
   readonly continueShoppingButton: Locator;
   readonly viewCartButton: Locator;
-
+  readonly brands: Locator;
+  readonly poloBrandLink: Locator;
+  readonly hmBrandLink: Locator;
+  readonly poloSectionHeading: Locator;
+  readonly hmSectionHeading: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -27,6 +31,11 @@ export class ProductsPage {
     this.secondProductAddToCartButton = page.locator('div:nth-child(4) > .product-image-wrapper > .single-products > .product-overlay > .overlay-content > .btn');
     this.continueShoppingButton = page.getByRole('button', { name: 'Continue Shopping' });
     this.viewCartButton = page.getByRole('link', { name: 'View Cart' });
+    this.brands = page.locator('div.left-sidebar .brands_products h2');
+    this.poloBrandLink = page.getByRole('link', { name: '(6) Polo' });
+    this.hmBrandLink = page.getByRole('link', { name: '(5) H&M' });
+    this.poloSectionHeading = page.getByRole('heading', { name: 'Brand - Polo Products' });
+    this.hmSectionHeading = page.getByRole('heading', { name: 'Brand - H&M Products' });
   }
 
   async verifyProductsPage() {
@@ -59,5 +68,19 @@ export class ProductsPage {
     await this.viewCartButton.click();  
   }
 
+  async verifyBrandsSection() {
+    await expect(this.brands.filter({hasText: /^\s*Brands\s*$/})).toBeVisible();
+  }
 
+  async viewBrandProducts() {
+    await this.poloBrandLink.click();
+    await expect(this.poloSectionHeading).toContainText('Brand - Polo Products');
+    const poloCount = await this.productList.count();
+    await expect(poloCount).toBeGreaterThan(0);
+
+    await this.hmBrandLink.click();
+    await expect(this.hmSectionHeading).toContainText('Brand - H&M Products');
+    const hmCount = await this.productList.count();
+    await expect(hmCount).toBeGreaterThan(0);
+  }
 }
