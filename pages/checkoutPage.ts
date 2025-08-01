@@ -19,7 +19,6 @@ export class CheckoutPage {
     }
 
     async validateAddresses() {
-        console.log("Validating addresses on checkout page", this.addressDelivery);
         expect(this.addressDelivery).toBeVisible();
         expect(this.addressInvoice).toBeVisible();
     }

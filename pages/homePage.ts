@@ -12,6 +12,7 @@ export class HomePage {
   readonly subscriptionSuccessMessage: Locator; 
   readonly cartPageLink: Locator;
   readonly viewFirstProduct: Locator;
+  readonly signupLoginLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -25,6 +26,7 @@ export class HomePage {
     this.subscriptionSuccessMessage = page.getByText('You have been successfully subscribed!');
     this.cartPageLink = page.getByRole('link', { name: ' Cart' });
     this.viewFirstProduct = page.locator('.choose > .nav > li > a').first();
+    this.signupLoginLink = page.getByRole('link', { name: ' Signup / Login' });
   }
 
   async goto() {
@@ -62,5 +64,9 @@ export class HomePage {
   async viewFirstProductInList() {
     await this.viewFirstProduct.click();
   } 
+
+  async clickSignupLoginLink() {
+    await this.signupLoginLink.click();
+  }
 
 }
