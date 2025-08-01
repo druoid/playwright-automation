@@ -14,7 +14,7 @@ test('Add products to cart', async ({ page }) => {
 
   await productsPage.verifyProductsPage();
   await productsPage.addProductsToCart();
-  await productsPage.viewCartModal();
+  await productsPage.viewCartModalButton();
   await cartPage.verifyCartContents();
 
 });

@@ -55,7 +55,7 @@ export class ProductsPage {
     await this.secondProductAddToCartButton.click();
   }
 
-  async viewCartModal() {
+  async viewCartModalButton() {
     await this.viewCartButton.click();  
   }
 

@@ -17,7 +17,7 @@ test('Verify product quantity in cart', async ({ page }) => {
 
   await firstProductDetailPage.addProductToCart(quantity);
 
-  await productsPage.viewCartModal();
+  await productsPage.viewCartModalButton();
 
   await cartPage.verifyProductQuantitiesInCart(quantity);
   

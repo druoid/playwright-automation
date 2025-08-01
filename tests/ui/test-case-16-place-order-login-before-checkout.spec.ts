@@ -42,10 +42,6 @@ test('Place order and register before checkout', async ({ page }) => {
   await cartPage.verifyCartPage();
   await cartPage.proceedToCheckout();
 
-  await homePage.clickCartPageLink();
-
-  await cartPage.proceedToCheckout();
-
   await checkoutPage.validateAddresses();
 
   await cartPage.verifyCartContents();
