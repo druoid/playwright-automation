@@ -13,6 +13,11 @@ export class HomePage {
   readonly cartPageLink: Locator;
   readonly viewFirstProduct: Locator;
   readonly signupLoginLink: Locator;
+  readonly categories: Locator;
+  readonly womanDressCategory: Locator;
+  readonly womanDressCategorySection: Locator;
+  readonly menTShirtCategory: Locator;
+  readonly menTShirtCategorySection: Locator;c
 
   constructor(page: Page) {
     this.page = page;
@@ -27,6 +32,12 @@ export class HomePage {
     this.cartPageLink = page.getByRole('link', { name: ' Cart' });
     this.viewFirstProduct = page.locator('.choose > .nav > li > a').first();
     this.signupLoginLink = page.getByRole('link', { name: ' Signup / Login' });
+    this.categories = page.locator('div.left-sidebar .panel-title a');
+    this.womanDressCategory = page.getByRole('link', { name: 'Dress' });
+    this.womanDressCategorySection = page.locator('section');  
+    this.menTShirtCategory = page.getByRole('link', { name: 'Tshirts' });
+    this.menTShirtCategorySection = page.locator('section');
+
   }
 
   async goto() {
@@ -69,4 +80,35 @@ export class HomePage {
     await this.signupLoginLink.click();
   }
 
+  async verifyWomenCategory() {
+    await expect(this.categories.filter({hasText: /^\s*Women\s*$/})).toBeVisible();
+  }
+  
+  async verifyMenCategory() {
+    await expect(this.categories.filter({hasText: /^\s*Men\s*$/})).toBeVisible();
+  }
+
+  async clickWomenCategory() {
+    await this.categories.filter({hasText: /^\s*Women\s*$/}).click();
+  }
+
+  async clickWomanDressCategory() {
+    await this.womanDressCategory.click();
+  }
+
+  async verifyWomanDressCategoryProductSectionHeader() {
+    await expect(this.womanDressCategorySection).toContainText('Women - Dress Products');
+  }
+
+  async clickMenCategory() {
+    await this.categories.filter({hasText: /^\s*Men\s*$/}).click();
+  }
+
+  async clickMenTShirtCategory() {
+    await this.menTShirtCategory.click();
+  }
+
+  async verifyMenTShirtCategoryProductSectionHeader() {
+    await expect(this.menTShirtCategorySection).toContainText('Men - Tshirts Products');
+  }
 }
