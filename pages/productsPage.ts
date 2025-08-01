@@ -74,11 +74,13 @@ export class ProductsPage {
 
   async viewBrandProducts() {
     await this.poloBrandLink.click();
+    await expect(this.page).toHaveURL("https://automationexercise.com/brand_products/Polo");
     await expect(this.poloSectionHeading).toContainText('Brand - Polo Products');
     const poloCount = await this.productList.count();
     await expect(poloCount).toBeGreaterThan(0);
 
     await this.hmBrandLink.click();
+    await expect(this.page).toHaveURL("https://automationexercise.com/brand_products/H&M");
     await expect(this.hmSectionHeading).toContainText('Brand - H&M Products');
     const hmCount = await this.productList.count();
     await expect(hmCount).toBeGreaterThan(0);
