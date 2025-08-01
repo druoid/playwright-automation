@@ -16,6 +16,8 @@ export class CartPage {
   readonly secondProductTotal: Locator; 
   readonly proceedToCheckoutButton: Locator;
   readonly registerLoginFromCartModal: Locator;
+  readonly deleteProductButton: Locator;
+  readonly emptyCartMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -33,6 +35,8 @@ export class CartPage {
     this.secondProductTotal = page.locator('tr#product-2 td.cart_total');
     this.proceedToCheckoutButton = page.getByText('Proceed To Checkout');
     this.registerLoginFromCartModal = page.getByRole('link', { name: 'Register / Login' });
+    this.deleteProductButton = page.getByRole('cell', { name: '' }).locator('a');
+    this.emptyCartMessage = page.getByText('Cart is empty!');
   }
 
   async verifyAddSubscriptionSuccessFromCartPage(user) {
@@ -77,5 +81,12 @@ export class CartPage {
     await this.registerLoginFromCartModal.click();
   }
 
+  async deleteProductFromCart() {
+    await this.deleteProductButton.click();
+  }
+
+  async verifyCartIsEmpty() {
+    await expect(this.emptyCartMessage).toBeVisible();
+  }
 
 }
