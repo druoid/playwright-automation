@@ -1,9 +1,18 @@
 import { request } from '@playwright/test';
 import { environments } from './environments';
 
+type EnvironmentKey = 'dev' | 'test';
+
 export default async () => {
-  const env = process.env.TEST_ENV || 'dev';
-  const baseURL = environments[env].baseURL;
+  const env: EnvironmentKey = (process.env.TEST_ENV as EnvironmentKey) || 'dev';
+
+  const environmentConfig = environments[env];
+  if (!environmentConfig) {
+    console.error(`Environment configuration for '${env}' is not defined.`);
+    process.exit(1);
+  }
+
+  const baseURL = environmentConfig.baseURL;
   const req = await request.newContext();
 
   try {
@@ -13,7 +22,11 @@ export default async () => {
       process.exit(0);
     }
   } catch (error) {
-    console.log(`Environment ${baseURL} is unreachable. Error: ${error.message}`);
+    if (error instanceof Error) {
+      console.log(`Environment ${baseURL} is unreachable. Error: ${error.message}`);
+    } else {
+      console.log(`Environment ${baseURL} is unreachable. Unknown error occurred.`);
+    }
     process.exit(0);
   }
 };

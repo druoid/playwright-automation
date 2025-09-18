@@ -4,12 +4,11 @@ import { generateUser } from '../../fixtures/user';
 import { ProductsPage } from '../../pages/productsPage';
 import { CartPage } from '../../pages/cartPage';
 import { LoginPage } from '../../pages/loginPage';
-import { AccountCreatedPage } from '../../pages/accountCreatedPage';  
+import { AccountCreatedPage } from '../../pages/accountCreatedPage';
 import { SignUpPage } from '../../pages/signUpPage';
 import { LoggedInHomePage } from '../../pages/loggedInHomePage';
-import { CheckoutPage } from '../../pages/checkoutPage';  
-import { PaymentPage } from '../../pages/paymentPage';    
-
+import { CheckoutPage } from '../../pages/checkoutPage';
+import { PaymentPage } from '../../pages/paymentPage';
 
 test('Place order and register at checkout', async ({ page }) => {
   const homePage = new HomePage(page);
@@ -28,21 +27,21 @@ test('Place order and register at checkout', async ({ page }) => {
   await homePage.verifyHomePage();
 
   await productsPage.addProductsToCart();
-  await productsPage.viewCartModalButton(); 
+  await productsPage.viewCartModalButton();
 
   await cartPage.verifyCartPage();
   await cartPage.proceedToCheckout();
-  await cartPage.openRegisterLoginFromCartModal(); 
-  
+  await cartPage.openRegisterLoginFromCartModal();
+
   await loginPage.newUserSignUp(user);
-  
+
   await signUpPage.enterAccountInformation(user);
 
   await accountCreatedPage.verifyAccountCreation();
   await accountCreatedPage.continue();
 
   await loggedInHomePage.verifyUserIsLoggedIn();
-  
+
   await homePage.clickCartPageLink();
 
   await cartPage.proceedToCheckout();
@@ -52,11 +51,11 @@ test('Place order and register at checkout', async ({ page }) => {
   await cartPage.verifyCartContents();
 
   await checkoutPage.verifyCartTotalPrice(await cartPage.calculateTotalPrice());
-  
+
   await checkoutPage.fillOrderComment();
   await checkoutPage.placeOrder();
 
   await paymentPage.fillPaymentDetailsAndSubmitPayment(user.firstName, user.lastName);
   await paymentPage.verifyOrderSuccess();
-  await paymentPage.deleteAccountAndContinue();  
+  await paymentPage.deleteAccountAndContinue();
 });

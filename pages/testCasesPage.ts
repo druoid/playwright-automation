@@ -8,6 +8,6 @@ export class TestCasesPage {
   }
 
   async verifyTestCasesPage() {
-    await expect(this.page).toHaveURL("https://automationexercise.com/test_cases"); 
+    await expect(this.page).toHaveURL('https://automationexercise.com/test_cases');
   }
 }

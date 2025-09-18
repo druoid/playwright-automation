@@ -1,8 +1,12 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator, expect, ElementHandle } from '@playwright/test';
 import { environments } from '../config/environments';
 
-const environment = process.env.TEST_ENV || 'dev';
-const { userPassword } = environments[environment];
+type EnvironmentKey = 'dev' | 'test';
+
+const environment: EnvironmentKey = (process.env.TEST_ENV as EnvironmentKey) || 'dev';
+
+const environmentConfig = environments[environment];
+const { userPassword } = environmentConfig;
 
 export class SignUpPage {
   readonly page: Page;
@@ -34,22 +38,69 @@ export class SignUpPage {
     this.daySelect = page.locator('#days');
     this.monthSelect = page.locator('#months');
     this.yearSelect = page.locator('#years');
-    this.newsletterCheckbox = page.getByRole('checkbox', { name: 'Sign up for our newsletter!' });
-    this.offersCheckbox = page.getByRole('checkbox', { name: 'Receive special offers from' });
+    this.newsletterCheckbox = page.getByRole('checkbox', {
+      name: 'Sign up for our newsletter!',
+    });
+    this.offersCheckbox = page.getByRole('checkbox', {
+      name: 'Receive special offers from',
+    });
     this.firstNameInput = page.getByRole('textbox', { name: 'First name *' });
     this.lastNameInput = page.getByRole('textbox', { name: 'Last name *' });
-    this.companyInput = page.getByRole('textbox', { name: 'Company', exact: true });
-    this.addressInput = page.getByRole('textbox', { name: 'Address * (Street address, P.' });
+    this.companyInput = page.getByRole('textbox', {
+      name: 'Company',
+      exact: true,
+    });
+    this.addressInput = page.getByRole('textbox', {
+      name: 'Address * (Street address, P.',
+    });
     this.address2Input = page.getByRole('textbox', { name: 'Address 2' });
     this.countrySelect = page.getByLabel('Country *');
     this.stateInput = page.getByRole('textbox', { name: 'State *' });
     this.cityZipInput = page.getByRole('textbox', { name: 'City * Zipcode *' });
     this.zipInput = page.locator('#zipcode');
     this.mobileInput = page.getByRole('textbox', { name: 'Mobile Number *' });
-    this.createAccountButton = page.getByRole('button', { name: 'Create Account' });
+    this.createAccountButton = page.getByRole('button', {
+      name: 'Create Account',
+    });
   }
 
-  async enterAccountInformation(user) {
+  async enterAccountInformation(user: {
+    birthdate: {
+      day:
+        | string
+        | readonly string[]
+        | ElementHandle<Node>
+        | { value?: string; label?: string; index?: number }
+        | readonly ElementHandle<Node>[]
+        | readonly { value?: string; label?: string; index?: number }[]
+        | null;
+      month:
+        | string
+        | readonly string[]
+        | ElementHandle<Node>
+        | { value?: string; label?: string; index?: number }
+        | readonly ElementHandle<Node>[]
+        | readonly { value?: string; label?: string; index?: number }[]
+        | null;
+      year:
+        | string
+        | readonly string[]
+        | ElementHandle<Node>
+        | { value?: string; label?: string; index?: number }
+        | readonly ElementHandle<Node>[]
+        | readonly { value?: string; label?: string; index?: number }[]
+        | null;
+    };
+    firstName: string;
+    lastName: string;
+    company: string;
+    address: string;
+    address2: string;
+    state: string;
+    city: string;
+    zipcode: string;
+    mobileNumber: string;
+  }) {
     await expect(this.sectionTitle).toBeVisible();
 
     await this.genderRadio.check();
@@ -76,4 +127,3 @@ export class SignUpPage {
     await this.createAccountButton.click();
   }
 }
-

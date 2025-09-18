@@ -5,7 +5,7 @@ export class CartPage {
   readonly subscriptionText: Locator;
   readonly subscriptionInput: Locator;
   readonly subscriptionButton: Locator;
-  readonly subscriptionSuccessMessage: Locator; 
+  readonly subscriptionSuccessMessage: Locator;
   readonly firstProductName: Locator;
   readonly secondProductName: Locator;
   readonly firstProductPrice: Locator;
@@ -13,7 +13,7 @@ export class CartPage {
   readonly firstProductQuantity: Locator;
   readonly secondProductQuantity: Locator;
   readonly firstProductTotal: Locator;
-  readonly secondProductTotal: Locator; 
+  readonly secondProductTotal: Locator;
   readonly proceedToCheckoutButton: Locator;
   readonly registerLoginFromCartModal: Locator;
   readonly deleteProductButton: Locator;
@@ -22,7 +22,9 @@ export class CartPage {
   constructor(page: Page) {
     this.page = page;
     this.subscriptionText = page.locator('#footer');
-    this.subscriptionInput = page.getByRole('textbox', { name: 'Your email address' });
+    this.subscriptionInput = page.getByRole('textbox', {
+      name: 'Your email address',
+    });
     this.subscriptionButton = page.getByRole('button', { name: '' });
     this.subscriptionSuccessMessage = page.getByText('You have been successfully subscribed!');
     this.firstProductName = page.locator('tr#product-1 td.cart_description');
@@ -34,17 +36,19 @@ export class CartPage {
     this.firstProductTotal = page.locator('tr#product-1 td.cart_total');
     this.secondProductTotal = page.locator('tr#product-2 td.cart_total');
     this.proceedToCheckoutButton = page.getByText('Proceed To Checkout');
-    this.registerLoginFromCartModal = page.getByRole('link', { name: 'Register / Login' });
+    this.registerLoginFromCartModal = page.getByRole('link', {
+      name: 'Register / Login',
+    });
     this.deleteProductButton = page.getByRole('cell', { name: '' }).locator('a');
     this.emptyCartMessage = page.getByText('Cart is empty!');
   }
 
-  async verifyAddSubscriptionSuccessFromCartPage(user) {
+  async verifyAddSubscriptionSuccessFromCartPage(user: { email: string }) {
     await expect(this.subscriptionText).toContainText('Subscription');
     await this.subscriptionInput.fill(user.email);
     await this.subscriptionButton.click();
     await expect(this.subscriptionSuccessMessage).toBeVisible();
-  }   
+  }
 
   async verifyCartContents() {
     await expect(this.firstProductName).toContainText('Blue Top');
@@ -88,5 +92,4 @@ export class CartPage {
   async verifyCartIsEmpty() {
     await expect(this.emptyCartMessage).toBeVisible();
   }
-
 }

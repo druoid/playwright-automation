@@ -22,5 +22,5 @@ test('Remove products from cart', async ({ page }) => {
   await cartPage.verifyCartPage();
 
   await cartPage.deleteProductFromCart();
-  await cartPage.verifyCartIsEmpty(); 
+  await cartPage.verifyCartIsEmpty();
 });

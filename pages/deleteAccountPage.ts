@@ -19,4 +19,3 @@ export class DeleteAccountPage {
     await this.continueLink.click();
   }
 }
-

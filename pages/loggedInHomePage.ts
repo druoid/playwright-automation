@@ -6,10 +6,12 @@ export class LoggedInHomePage {
   readonly deleteAccountLink: Locator;
   readonly logoutLink: Locator;
 
-  constructor(page: Page, user: { firstName: string; lastName: string; }) {
+  constructor(page: Page, user: { firstName: string; lastName: string }) {
     this.page = page;
     this.loggedInText = page.getByText(`Logged in as ${user.firstName} ${user.lastName}`);
-    this.deleteAccountLink = page.getByRole('link', { name: ' Delete Account' });
+    this.deleteAccountLink = page.getByRole('link', {
+      name: ' Delete Account',
+    });
     this.logoutLink = page.getByRole('link', { name: ' Logout' });
   }
 
@@ -25,4 +27,3 @@ export class LoggedInHomePage {
     await this.logoutLink.click();
   }
 }
-

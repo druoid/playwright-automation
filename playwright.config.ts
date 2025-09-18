@@ -1,7 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 import { environments } from './config/environments';
 
-const environment = process.env.TEST_ENV || 'dev';
+type EnvironmentKey = 'dev' | 'test';
+
+const environment: EnvironmentKey = (process.env.TEST_ENV as EnvironmentKey) || 'dev';
+
 const currentEnv = environments[environment];
 
 export default defineConfig({

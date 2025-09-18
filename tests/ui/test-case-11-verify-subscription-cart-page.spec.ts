@@ -11,7 +11,7 @@ test('Verify add subscription on cart page', async ({ page }) => {
 
   await homePage.goto();
   await homePage.verifyHomePage();
-  
+
   await homePage.clickCartPageLink();
   await cartPage.verifyAddSubscriptionSuccessFromCartPage(user);
 });

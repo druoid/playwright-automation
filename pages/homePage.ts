@@ -9,7 +9,7 @@ export class HomePage {
   readonly subscriptionText: Locator;
   readonly subscriptionInput: Locator;
   readonly subscriptionButton: Locator;
-  readonly subscriptionSuccessMessage: Locator; 
+  readonly subscriptionSuccessMessage: Locator;
   readonly cartPageLink: Locator;
   readonly viewFirstProduct: Locator;
   readonly signupLoginLink: Locator;
@@ -17,7 +17,7 @@ export class HomePage {
   readonly womanDressCategory: Locator;
   readonly womanDressCategorySection: Locator;
   readonly menTShirtCategory: Locator;
-  readonly menTShirtCategorySection: Locator;c
+  readonly menTShirtCategorySection: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -26,7 +26,9 @@ export class HomePage {
     this.testCasesLink = page.getByRole('link', { name: ' Test Cases' });
     this.productsLink = page.getByRole('link', { name: ' Products' });
     this.subscriptionText = page.locator('#footer');
-    this.subscriptionInput = page.getByRole('textbox', { name: 'Your email address' });
+    this.subscriptionInput = page.getByRole('textbox', {
+      name: 'Your email address',
+    });
     this.subscriptionButton = page.getByRole('button', { name: '' });
     this.subscriptionSuccessMessage = page.getByText('You have been successfully subscribed!');
     this.cartPageLink = page.getByRole('link', { name: ' Cart' });
@@ -34,10 +36,9 @@ export class HomePage {
     this.signupLoginLink = page.getByRole('link', { name: ' Signup / Login' });
     this.categories = page.locator('div.left-sidebar .panel-title a');
     this.womanDressCategory = page.getByRole('link', { name: 'Dress' });
-    this.womanDressCategorySection = page.locator('section');  
+    this.womanDressCategorySection = page.locator('section');
     this.menTShirtCategory = page.getByRole('link', { name: 'Tshirts' });
     this.menTShirtCategorySection = page.locator('section');
-
   }
 
   async goto() {
@@ -45,7 +46,7 @@ export class HomePage {
   }
 
   async verifyHomePage() {
-    await expect(this.page).toHaveURL('https://automationexercise.com'); 
+    await expect(this.page).toHaveURL('https://automationexercise.com');
     await expect(this.heading).toBeVisible();
   }
 
@@ -61,12 +62,12 @@ export class HomePage {
     await this.productsLink.click();
   }
 
-  async verifyAddSubscriptionSuccessFromHomePage(user) {
+  async verifyAddSubscriptionSuccessFromHomePage(user: { email: string }) {
     await expect(this.subscriptionText).toContainText('Subscription');
     await this.subscriptionInput.fill(user.email);
     await this.subscriptionButton.click();
     await expect(this.subscriptionSuccessMessage).toBeVisible();
-  }   
+  }
 
   async clickCartPageLink() {
     await this.cartPageLink.click();
@@ -74,22 +75,22 @@ export class HomePage {
 
   async viewFirstProductInList() {
     await this.viewFirstProduct.click();
-  } 
+  }
 
   async clickSignupLoginLink() {
     await this.signupLoginLink.click();
   }
 
   async verifyWomenCategory() {
-    await expect(this.categories.filter({hasText: /^\s*Women\s*$/})).toBeVisible();
+    await expect(this.categories.filter({ hasText: /^\s*Women\s*$/ })).toBeVisible();
   }
-  
+
   async verifyMenCategory() {
-    await expect(this.categories.filter({hasText: /^\s*Men\s*$/})).toBeVisible();
+    await expect(this.categories.filter({ hasText: /^\s*Men\s*$/ })).toBeVisible();
   }
 
   async clickWomenCategory() {
-    await this.categories.filter({hasText: /^\s*Women\s*$/}).click();
+    await this.categories.filter({ hasText: /^\s*Women\s*$/ }).click();
   }
 
   async clickWomanDressCategory() {
@@ -101,7 +102,7 @@ export class HomePage {
   }
 
   async clickMenCategory() {
-    await this.categories.filter({hasText: /^\s*Men\s*$/}).click();
+    await this.categories.filter({ hasText: /^\s*Men\s*$/ }).click();
   }
 
   async clickMenTShirtCategory() {

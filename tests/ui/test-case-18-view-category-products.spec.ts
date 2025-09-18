@@ -11,7 +11,7 @@ test('View category products', async ({ page }) => {
 
   await homePage.clickWomenCategory();
   await homePage.clickWomanDressCategory();
-  await homePage.verifyWomanDressCategoryProductSectionHeader();    
+  await homePage.verifyWomanDressCategoryProductSectionHeader();
 
   await homePage.clickMenCategory();
   await homePage.clickMenTShirtCategory();

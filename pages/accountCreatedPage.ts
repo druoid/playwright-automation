@@ -4,7 +4,7 @@ export class AccountCreatedPage {
   readonly page: Page;
   readonly successMessage: Locator;
   readonly continueButton: Locator;
-  
+
   constructor(page: Page) {
     this.page = page;
     this.successMessage = page.getByText('Account Created!');
@@ -16,6 +16,6 @@ export class AccountCreatedPage {
   }
 
   async continue() {
-    await this.continueButton.click();  
+    await this.continueButton.click();
   }
 }

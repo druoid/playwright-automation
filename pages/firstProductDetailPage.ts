@@ -8,7 +8,7 @@ export class FirstProductDetailPage {
   readonly productDetailPrice: Locator;
   readonly productDetailAvailability: Locator;
   readonly productDetailCondition: Locator;
-  readonly productDetailBrand: Locator;    
+  readonly productDetailBrand: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,7 +23,7 @@ export class FirstProductDetailPage {
 
   async verifyFirstProductPageAndDetail() {
     await this.firstProductDetailLink.click();
-    await expect(this.page).toHaveURL("https://automationexercise.com/product_details/1");
+    await expect(this.page).toHaveURL('https://automationexercise.com/product_details/1');
     await expect(this.productDetailHeading).toBeVisible();
     await expect(this.productDetailCategory).toBeVisible();
     await expect(this.productDetailPrice).toBeVisible();
@@ -33,7 +33,7 @@ export class FirstProductDetailPage {
   }
 
   async addProductToCart(quantity: number) {
-    await this.page.locator('#quantity').fill(quantity.toString())
+    await this.page.locator('#quantity').fill(quantity.toString());
     await this.page.getByRole('button', { name: ' Add to cart' }).click();
   }
 }

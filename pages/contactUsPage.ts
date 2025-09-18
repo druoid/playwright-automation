@@ -18,7 +18,9 @@ export class ContactUsPage {
     this.nameInput = page.getByRole('textbox', { name: 'Name' });
     this.emailInput = page.getByRole('textbox', { name: 'Email', exact: true });
     this.subjectInput = page.getByRole('textbox', { name: 'Subject' });
-    this.messageInput = page.getByRole('textbox', { name: 'Your Message Here' });
+    this.messageInput = page.getByRole('textbox', {
+      name: 'Your Message Here',
+    });
     this.fileUploadButton = page.getByRole('button', { name: 'Choose File' });
     this.submitButton = page.getByTestId('submit-button');
     this.successMessage = page.locator('#contact-page').getByText('Success! Your details have');
@@ -30,7 +32,7 @@ export class ContactUsPage {
     await expect(this.heading).toBeVisible();
   }
 
-  async fillContactForm(user) {
+  async fillContactForm(user: { firstName: string; lastName: string; email: string }) {
     await this.nameInput.fill(`${user.firstName} ${user.lastName}`);
     await this.emailInput.fill(user.email);
     await this.subjectInput.fill('Test Subject');
@@ -57,4 +59,3 @@ export class ContactUsPage {
     await this.homeLink.click();
   }
 }
-

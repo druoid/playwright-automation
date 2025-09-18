@@ -15,8 +15,6 @@ test('Login user with correct email and password', async ({ page }) => {
   const user = generateUser();
   const loggedInHomePage = new LoggedInHomePage(page, user);
   const deleteAccountPage = new DeleteAccountPage(page);
-  
-  
 
   await homePage.goto();
   await homePage.verifyHomePage();

@@ -1,9 +1,9 @@
 ## Purpose
 
-This project showcases playwright UI automation examples using test cases from https://automationexercise.com/test_cases  
+This project showcases playwright UI automation examples using test cases from https://automationexercise.com/test_cases
 
-The project uses github actions and Page Object Model best practices.  It also uses eslint as the linting tool and faker 
-for dynamic data creation.  There is also a mechanism to specify which environment settings to use i.e dev or test (defaulting to dev) and it skips tests if an environment is unreachable.
+The project uses github actions and Page Object Model best practices. It also uses eslint as the linting tool and faker
+for dynamic data creation. There is also a mechanism to specify which environment settings to use i.e dev or test (defaulting to dev) and it skips tests if an environment is unreachable.
 
 ## Getting the Latest Code
 
@@ -19,6 +19,6 @@ To run playwright tests locally, your system must have node installed
 
 ## Running the Tests
 
-1. In your IDE's terminal navigate to the root of the project 
+1. In your IDE's terminal navigate to the root of the project
 2. Run `npm install` to install dependencies
 3. Run `npx playwright test`

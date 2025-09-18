@@ -16,8 +16,8 @@ test('Validate contact us form', async ({ page }) => {
   await contactUsPage.verifyOnContactUsPage();
   await contactUsPage.fillContactForm(user);
   await contactUsPage.uploadFile();
- 
-  await contactUsPage.submitFormWithDialogConfirmation(); 
+
+  await contactUsPage.submitFormWithDialogConfirmation();
 
   await contactUsPage.verifySuccessMessage();
   await contactUsPage.goHome();

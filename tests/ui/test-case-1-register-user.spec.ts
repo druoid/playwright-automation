@@ -16,7 +16,6 @@ test('Register user', async ({ page }) => {
   const loggedInHomePage = new LoggedInHomePage(page, user);
   const deleteAccountPage = new DeleteAccountPage(page);
 
-
   await homePage.goto();
   await homePage.verifyHomePage();
 
