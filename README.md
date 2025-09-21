@@ -16,6 +16,8 @@ To run playwright tests locally, your system must have node installed
 1. In a terminal install NVM (Node version manager) with `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash`
 2. Restart terminal, then install Node.js by running the following command `nvm install node` # latest version
 3. Verify npm is installed by running the following command `npm -v` # Should return the npm version
+4. Install playwright `npm install playwright`
+5. Install browsers `npx playwright install`
 
 ## Running the Tests
 
