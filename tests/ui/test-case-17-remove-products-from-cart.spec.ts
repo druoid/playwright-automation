@@ -17,7 +17,7 @@ test('Remove products from cart', async ({ page }) => {
 
   await firstProductDetailPage.addProductToCart(quantity);
 
-  await productsPage.viewCartModalButton();
+  await productsPage.viewCartFromModal();
 
   await cartPage.verifyCartPage();
 

@@ -18,7 +18,6 @@ export class HomePage {
   readonly womanDressCategorySection: Locator;
   readonly menTShirtCategory: Locator;
   readonly menTShirtCategorySection: Locator;
-  readonly popUpAd: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -40,7 +39,6 @@ export class HomePage {
     this.womanDressCategorySection = page.locator('section');
     this.menTShirtCategory = page.getByRole('link', { name: 'Tshirts' });
     this.menTShirtCategorySection = page.locator('section');
-    this.popUpAd = page.locator('.grippy-host');
   }
 
   async goto() {
@@ -50,12 +48,6 @@ export class HomePage {
   async verifyHomePage() {
     await expect(this.page).toHaveURL('https://automationexercise.com');
     await expect(this.heading).toBeVisible();
-    if (await this.popUpAd.isVisible()) {
-      await this.popUpAd.click();
-      console.log('Popup ad clicked.');
-    } else {
-      console.log('Popup ad not visible, continuing...');
-    }
   }
 
   async clickContactUsLink() {

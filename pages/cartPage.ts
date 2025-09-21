@@ -18,6 +18,7 @@ export class CartPage {
   readonly registerLoginFromCartModal: Locator;
   readonly deleteProductButton: Locator;
   readonly emptyCartMessage: Locator;
+  readonly mainNavCartLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -41,6 +42,9 @@ export class CartPage {
     });
     this.deleteProductButton = page.getByRole('cell', { name: '' }).locator('a');
     this.emptyCartMessage = page.getByText('Cart is empty!');
+    this.mainNavCartLink = page.getByRole('link', {
+      name: 'Cart',
+    });
   }
 
   async cartPage() {
@@ -95,5 +99,16 @@ export class CartPage {
 
   async verifyCartIsEmpty() {
     await expect(this.emptyCartMessage).toBeVisible();
+  }
+
+  async verifyCartContentsSingleItem() {
+    await expect(this.firstProductName).toContainText('Blue Top');
+    await expect(this.firstProductPrice).toContainText('Rs. 500');
+    await expect(this.firstProductQuantity).toContainText('1');
+    await expect(this.firstProductTotal).toContainText('Rs. 500');
+  }
+
+  async navigateToCartFromMainNavigation() {
+    await this.mainNavCartLink.click();
   }
 }

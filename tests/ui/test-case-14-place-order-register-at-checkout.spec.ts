@@ -27,7 +27,7 @@ test('Place order and register at checkout', async ({ page }) => {
   await homePage.verifyHomePage();
 
   await productsPage.addProductsToCart();
-  await productsPage.viewCartModalButton();
+  await productsPage.viewCartFromModal();
 
   await cartPage.verifyCartPage();
   await cartPage.proceedToCheckout();

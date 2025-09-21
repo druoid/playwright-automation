@@ -76,7 +76,7 @@ export class ProductsPage {
     await this.productAddedModalMessage.isVisible();
   }
 
-  async viewCartModalButton() {
+  async viewCartFromModal() {
     await this.viewCartButton.isVisible();
     await this.viewCartButton.isEnabled();
     await this.viewCartButton.click();
@@ -98,5 +98,11 @@ export class ProductsPage {
     await expect(this.hmSectionHeading).toContainText('Brand - H&M Products');
     const hmCount = await this.productList.count();
     await expect(hmCount).toBeGreaterThan(0);
+  }
+
+  async addSearchedSingleProductToCart() {
+    await this.firstProductOverlay.hover();
+    await this.firstProductOverlay.click();
+    await this.firstProductAddToCartButton.click();
   }
 }

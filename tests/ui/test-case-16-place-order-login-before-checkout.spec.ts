@@ -36,7 +36,7 @@ test('Place order and login before checkout', async ({ page }) => {
   await loggedInHomePage.verifyUserIsLoggedIn();
 
   await productsPage.addProductsToCart();
-  await productsPage.viewCartModalButton();
+  await productsPage.viewCartFromModal();
 
   await cartPage.verifyCartPage();
   await cartPage.proceedToCheckout();
