@@ -3,6 +3,7 @@ import { Page, Locator, expect } from '@playwright/test';
 export class ProductsPage {
   readonly page: Page;
   readonly productList: Locator;
+  readonly productAddedModalMessage: Locator;
   readonly searchInput: Locator;
   readonly searchButton: Locator;
   readonly searchedProductsHeading: Locator;
@@ -45,6 +46,7 @@ export class ProductsPage {
     this.hmSectionHeading = page.getByRole('heading', {
       name: 'Brand - H&M Products',
     });
+    this.productAddedModalMessage = page.getByText('Your product has been added');
   }
 
   async verifyProductsPage() {
@@ -59,7 +61,6 @@ export class ProductsPage {
     await this.searchInput.fill(productName);
     await this.searchButton.click();
     await expect(this.searchedProductsHeading).toBeVisible();
-
     const matchingProduct = this.productList.filter({ hasText: productName });
     await expect(matchingProduct.first()).toBeVisible();
   }
@@ -67,15 +68,17 @@ export class ProductsPage {
   async addProductsToCart() {
     await this.firstProductOverlay.hover();
     await this.firstProductOverlay.click();
-    await expect(async () => {
-      await this.firstProductAddToCartButton.click();
-    }).toPass({ intervals: [2_000, 4_000, 8_000], timeout: 120_000 });
+    await this.firstProductAddToCartButton.click();
+    await this.productAddedModalMessage.isVisible();
     await this.continueShoppingButton.click();
     await this.secondProductOverlay.hover();
     await this.secondProductAddToCartButton.click();
+    await this.productAddedModalMessage.isVisible();
   }
 
   async viewCartModalButton() {
+    await this.viewCartButton.isVisible();
+    await this.viewCartButton.isEnabled();
     await this.viewCartButton.click();
   }
 

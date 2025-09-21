@@ -43,6 +43,10 @@ export class CartPage {
     this.emptyCartMessage = page.getByText('Cart is empty!');
   }
 
+  async cartPage() {
+    await expect(this.page).toHaveURL('https://automationexercise.com/view_cart');
+  }
+
   async verifyAddSubscriptionSuccessFromCartPage(user: { email: string }) {
     await expect(this.subscriptionText).toContainText('Subscription');
     await this.subscriptionInput.fill(user.email);
