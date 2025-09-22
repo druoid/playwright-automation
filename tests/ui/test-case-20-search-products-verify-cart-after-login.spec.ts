@@ -20,9 +20,10 @@ test('Search products and verify cart after login', async ({ page }) => {
   await homePage.clickProductsLink();
 
   await productsPage.verifyProductsPage();
-  await productsPage.searchProduct('Blue top');
 
-  await popUpAdPage.removePopUpAd();
+  await popUpAdPage.removePopUpAd(); 
+
+  await productsPage.searchProduct('Blue top');
 
   await productsPage.addSearchedSingleProductToCart();
   await productsPage.viewCartFromModal();

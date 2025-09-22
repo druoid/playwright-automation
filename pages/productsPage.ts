@@ -74,7 +74,8 @@ export class ProductsPage {
   async addProductsToCart() {
     await this.firstProductOverlay.hover();
     await this.firstProductOverlay.click();
-    await this.firstProductAddToCartButton.isVisible();
+    await expect(this.firstProductAddToCartButton).toBeVisible();
+    await expect(this.firstProductAddToCartButton).toBeEnabled();
     await this.firstProductAddToCartButton.click();
     await this.productAddedModalMessage.isVisible();
     await this.continueShoppingButton.click();
@@ -111,6 +112,7 @@ export class ProductsPage {
     await this.firstProductOverlay.hover();
     await this.firstProductOverlay.click();
     await expect(this.firstProductAddToCartButton).toBeVisible();
+    await expect(this.firstProductAddToCartButton).toBeEnabled();
     await this.firstProductAddToCartButton.click();
   }
 
