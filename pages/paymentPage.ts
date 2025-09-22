@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator, expect, Download } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
 export class PaymentPage {
@@ -13,6 +13,7 @@ export class PaymentPage {
   readonly deleteAccountLink: Locator;
   readonly accountDeletedMessage: Locator;
   readonly accountDeletedContinueButton: Locator;
+  readonly downloadInvoiceButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -30,6 +31,7 @@ export class PaymentPage {
     });
     this.accountDeletedMessage = page.locator('#form').getByText('Account Deleted!');
     this.accountDeletedContinueButton = page.getByTestId('continue-button');
+    this.downloadInvoiceButton = page.getByRole('link', { name: 'Download Invoice' });
   }
 
   async fillPaymentDetailsAndSubmitPayment(firstName: string, lastName: string) {
@@ -50,5 +52,17 @@ export class PaymentPage {
     await expect(this.accountDeletedMessage).toBeVisible();
     await expect(this.accountDeletedContinueButton).toBeVisible();
     await this.accountDeletedContinueButton.click();
+  }
+
+  async verifySuccessfulDownloadOfInvoice() {
+    const downloadPromise = this.page.waitForEvent('download');
+    await this.downloadInvoiceButton.click();
+    const download: Download = await downloadPromise;
+    const downloadPath = await download.path();
+    if (downloadPath) {
+      console.log('Invoice download started and completed successfully.');
+    } else {
+      console.error('Failed to download the invoice.');
+    }
   }
 }
