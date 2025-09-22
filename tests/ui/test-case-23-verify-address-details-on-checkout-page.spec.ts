@@ -10,7 +10,7 @@ import { LoggedInHomePage } from '../../pages/loggedInHomePage';
 import { CheckoutPage } from '../../pages/checkoutPage';
 import { PaymentPage } from '../../pages/paymentPage';
 
-test('Place order and register before checkout', async ({ page }) => {
+test('Verify address details in checkout page', async ({ page }) => {
   const homePage = new HomePage(page);
   const loginPage = new LoginPage(page);
   const productsPage = new ProductsPage(page);
