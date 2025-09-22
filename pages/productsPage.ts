@@ -74,6 +74,7 @@ export class ProductsPage {
   async addProductsToCart() {
     await this.firstProductOverlay.hover();
     await this.firstProductOverlay.click();
+    await this.firstProductAddToCartButton.isVisible();
     await this.firstProductAddToCartButton.click();
     await this.productAddedModalMessage.isVisible();
     await this.continueShoppingButton.click();
@@ -109,6 +110,7 @@ export class ProductsPage {
   async addSearchedSingleProductToCart() {
     await this.firstProductOverlay.hover();
     await this.firstProductOverlay.click();
+    await this.firstProductAddToCartButton.isVisible();
     await this.firstProductAddToCartButton.click();
   }
 
