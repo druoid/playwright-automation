@@ -18,6 +18,8 @@ export class ProductsPage {
   readonly hmBrandLink: Locator;
   readonly poloSectionHeading: Locator;
   readonly hmSectionHeading: Locator;
+  readonly allProductsHeading: Locator;
+  readonly viewFirstProductLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -47,6 +49,10 @@ export class ProductsPage {
       name: 'Brand - H&M Products',
     });
     this.productAddedModalMessage = page.getByText('Your product has been added');
+    this.allProductsHeading = page.getByRole('heading', {
+      name: 'ALL PRODUCTS',
+    });
+    this.viewFirstProductLink = page.locator('.choose > .nav > li > a').first();
   }
 
   async verifyProductsPage() {
@@ -104,5 +110,9 @@ export class ProductsPage {
     await this.firstProductOverlay.hover();
     await this.firstProductOverlay.click();
     await this.firstProductAddToCartButton.click();
+  }
+
+  async viewFirstProduct() {
+    await this.viewFirstProductLink.click();
   }
 }
