@@ -20,10 +20,10 @@ export class ProductDetailPage {
   }
 
   async leaveReviewAndSubmitWithSuccessMessage(user: { firstName: string,  email: string } ) {
-    await expect(this.reviewHeading.isVisible({timeout: 90000}));
-    this.yourNameTextBox.fill(user.firstName);
-    this.emailAddress.fill(user.email);
-    this.reviewTextBox.fill('Fake review');
+    await expect(this.reviewHeading).toBeVisible();
+    await this.yourNameTextBox.fill(user.firstName);
+    await this.emailAddress.fill(user.email);
+    await this.reviewTextBox.fill('Fake review');
     await expect(this.reviewSuccessMessage).toHaveText('Thank you for your review.');
   }
 }

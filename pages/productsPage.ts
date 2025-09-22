@@ -110,7 +110,7 @@ export class ProductsPage {
   async addSearchedSingleProductToCart() {
     await this.firstProductOverlay.hover();
     await this.firstProductOverlay.click();
-    await this.firstProductAddToCartButton.isVisible();
+    await expect(this.firstProductAddToCartButton).toBeVisible();
     await this.firstProductAddToCartButton.click();
   }
 
