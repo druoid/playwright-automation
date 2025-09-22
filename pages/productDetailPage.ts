@@ -7,6 +7,7 @@ export class ProductDetailPage {
   readonly reviewTextBox: Locator;
   readonly submitButton: Locator;
   readonly reviewSuccessMessage: Locator;
+  readonly reviewHeading: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -15,10 +16,11 @@ export class ProductDetailPage {
     this.reviewTextBox = page.getByRole('textbox', { name: 'Add Review Here!' });
     this.submitButton = page.getByRole('button', { name: 'Submit' });
     this.reviewSuccessMessage = page.locator('.alert-success.alert span');
-
+    this.reviewHeading = page.getByRole('link', { name: 'Write Your Review' });
   }
 
   async leaveReviewAndSubmitWithSuccessMessage(user: { firstName: string,  email: string } ) {
+    this.reviewHeading.isVisible({timeout: 90000});
     this.yourNameTextBox.fill(user.firstName);
     this.emailAddress.fill(user.email);
     this.reviewTextBox.fill('Fake review');

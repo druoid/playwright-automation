@@ -18,6 +18,8 @@ export class HomePage {
   readonly womanDressCategorySection: Locator;
   readonly menTShirtCategory: Locator;
   readonly menTShirtCategorySection: Locator;
+  readonly recommendedItemsHeading: Locator;
+  readonly firstItemInRecommendedItems: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -39,6 +41,8 @@ export class HomePage {
     this.womanDressCategorySection = page.locator('section');
     this.menTShirtCategory = page.getByRole('link', { name: 'Tshirts' });
     this.menTShirtCategorySection = page.locator('section');
+    this.recommendedItemsHeading = page.getByRole('heading', { name: 'recommended items' });
+    this.firstItemInRecommendedItems = page.locator('.item > div > .product-image-wrapper > .single-products > .productinfo > .btn').first();
   }
 
   async goto() {
@@ -59,6 +63,7 @@ export class HomePage {
   }
 
   async clickProductsLink() {
+    await this.productsLink.isVisible();
     await this.productsLink.click();
   }
 
@@ -111,5 +116,11 @@ export class HomePage {
 
   async verifyMenTShirtCategoryProductSectionHeader() {
     await expect(this.menTShirtCategorySection).toContainText('Men - Tshirts Products');
+  }
+
+  async clickOnFirstItemInRecommendedItems() {
+    this.recommendedItemsHeading.scrollIntoViewIfNeeded();
+    this.firstItemInRecommendedItems.isVisible();
+    this.firstItemInRecommendedItems.click();
   }
 }

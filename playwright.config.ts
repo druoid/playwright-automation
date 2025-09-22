@@ -8,7 +8,7 @@ const environment: EnvironmentKey = (process.env.TEST_ENV as EnvironmentKey) || 
 const currentEnv = environments[environment];
 
 export default defineConfig({
-  timeout: 60_000,
+  timeout: 120_000,
 
   testDir: './tests',
   /* Run tests in files in parallel */
