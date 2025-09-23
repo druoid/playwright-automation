@@ -20,6 +20,9 @@ export class HomePage {
   readonly menTShirtCategorySection: Locator;
   readonly recommendedItemsHeading: Locator;
   readonly firstItemInRecommendedItems: Locator;
+  readonly subscriptionHeader: Locator;
+  readonly scrollUpArrow: Locator;
+  readonly siteTagLine: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -43,6 +46,9 @@ export class HomePage {
     this.menTShirtCategorySection = page.locator('section');
     this.recommendedItemsHeading = page.getByRole('heading', { name: 'recommended items' });
     this.firstItemInRecommendedItems = page.locator('.item > div > .product-image-wrapper > .single-products > .productinfo > .btn').first();
+    this.subscriptionHeader = page.getByRole('heading', { name: 'Subscription' });
+    this.scrollUpArrow = page.locator('#scrollUp');
+    this.siteTagLine = page.getByRole('heading', { name: 'Full-Fledged practice website' });
   }
 
   async goto() {
@@ -119,8 +125,24 @@ export class HomePage {
   }
 
   async clickOnFirstItemInRecommendedItems() {
-    this.recommendedItemsHeading.scrollIntoViewIfNeeded();
-    this.firstItemInRecommendedItems.isVisible();
-    this.firstItemInRecommendedItems.click();
+    await this.recommendedItemsHeading.scrollIntoViewIfNeeded();
+    await this.firstItemInRecommendedItems.isVisible();
+    await this.firstItemInRecommendedItems.click();
+  }
+
+  async verifyScrollDownAndUpWithoutArrow()
+  {
+    await this.subscriptionHeader.scrollIntoViewIfNeeded();
+    await expect(this.subscriptionHeader).toBeVisible(); 
+    await this.page.evaluate(() => window.scrollTo(0, 0));
+    await expect(this.siteTagLine).toBeVisible(); 
+  }
+
+  async verifyScrollDownAndUpWithArrow()
+  {
+    await this.subscriptionHeader.scrollIntoViewIfNeeded();
+    await expect(this.subscriptionHeader).toBeVisible(); 
+    await this.scrollUpArrow.click();
+    await expect(this.siteTagLine).toBeVisible(); 
   }
 }
